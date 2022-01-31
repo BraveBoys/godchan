@@ -380,7 +380,7 @@
 
 			</div>  
 
-		<form action="http://localhost:8080/TestServer/MapTestData" method="get" name="form1">	
+		<form action="http://192.168.0.103:8080/TestServer/EmergencyTest/MapTestData" method="get" name="form1">	
 
 			<input type="hidden" id="strArr" name="strArr" value="">			
 
@@ -400,7 +400,7 @@
 
 				document.getElementById('strArr').value = strArr;
 
-				console.log(document.getElementById('strArr').value);
+				//console.log(document.getElementById('strArr').value);
 
 				evt.preventDefault();
 
