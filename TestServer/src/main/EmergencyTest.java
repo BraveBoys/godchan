@@ -117,6 +117,8 @@ public class EmergencyTest extends HttpServlet {
 	      // String mq5 = request.getParameter("MQ5");
 	      // String mq6 = request.getParameter("MQ6");
 	      String flame1 = request.getParameter("flame1");
+	      
+	      
 
 	      if (Integer.parseInt(flame1) == 0 /* && Integer.parseInt(mq5) > 400 */) {
 	         this.fireStatus = 0;
