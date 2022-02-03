@@ -135,6 +135,7 @@ public class EmergencyTest extends HttpServlet {
 	         FireSensorWiehghtChange fswc = new FireSensorWiehghtChange();
 			 fswc.WeightChange2(firearr);
 			 
+			 
 			 this.json(request, response);
 	         
 	      } 
