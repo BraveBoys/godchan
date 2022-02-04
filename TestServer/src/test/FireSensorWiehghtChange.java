@@ -2,6 +2,8 @@ package test;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+
 import main.EmergencyTest;
 import main.BaseMap;
 
@@ -21,7 +23,8 @@ public class FireSensorWiehghtChange {
    public int[][] WeightChange(ArrayList firearr) {
       int[][] resultmap = basemap.getMap_arr();
       for(int i=0; i<firearr.size(); i++) {
-         resultmap[sensormap.getSensormap().get(firearr.get(i)).getX()][sensormap.getSensormap().get(firearr.get(i)).getX()] = 999;
+    	  resultmap[sensormap.getSensormap().get(firearr.get(i)).getX()][sensormap.getSensormap().get(firearr.get(i)).getY()] = 999;
+
       }
       
       
@@ -41,7 +44,7 @@ public class FireSensorWiehghtChange {
    public int[][] WeightChange2(ArrayList firearr) {
 	      int[][] resultmap = basemap.getMap_arr();
 	      for(int i=0; i<firearr.size(); i++) {
-	         resultmap[sensormap.getSensormap().get(firearr.get(i)).getX()][sensormap.getSensormap().get(firearr.get(i)).getX()] = 0;
+	         resultmap[sensormap.getSensormap().get(firearr.get(i)).getX()][sensormap.getSensormap().get(firearr.get(i)).getY()] = 0;
 	         
 	      }
 	      
@@ -53,10 +56,10 @@ public class FireSensorWiehghtChange {
 	         System.out.println();
 	         
 	      }
-	      
 	      System.out.println("-----------------");
 	      return resultmap;
 	   }
+   
    
    public static void main(String[] args) {
       FireSensorWiehghtChange fswc = new FireSensorWiehghtChange();

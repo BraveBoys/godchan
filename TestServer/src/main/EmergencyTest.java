@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Window;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -21,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import test.FireSensorWiehghtChange;
+import test.SensorMap;
 
 /**
  * Servlet implementation class EmergencyTest
@@ -31,9 +29,11 @@ import test.FireSensorWiehghtChange;
 public class EmergencyTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> firearr;
+	private ArrayList<int[]> fireposition;
 	private int fireStatus;
 	// private int fireStatus1;
 	private int gasStatus;
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -44,6 +44,12 @@ public class EmergencyTest extends HttpServlet {
 		// this.fireStatus1 = 0;
 		this.gasStatus = 0;
 		this.firearr = new ArrayList<String>();
+//		this.fireposition = new ArrayList<int[]>();
+//		this.fireposition.add(new int[] {1,22});
+		//this.fireposition.add(new int[] {23, 22});
+		//this.fireposition.add(new int[] {19, 1});
+		
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -125,7 +131,10 @@ public class EmergencyTest extends HttpServlet {
 	         System.out.println("찬혁 = " + flame1); // 아두이노 Com_3
 	         firearr.add("flame1");
 	         
+	         
+	         System.out.println(fireposition);
 	         FireSensorWiehghtChange fswc = new FireSensorWiehghtChange();
+			 fswc.WeightChange(firearr);
 			 fswc.WeightChange(firearr);
 			  
 			 this.json(request, response);
@@ -148,7 +157,7 @@ public class EmergencyTest extends HttpServlet {
 	      // String mq6 = request.getParameter("MQ6");
 	      // String flame2 = request.getParameter("flame2");
 	      String flame3 = request.getParameter("flame3");
-
+	      
 	      if (Integer.parseInt(flame3) == 0 /* && Integer.parseInt(mq5) > 400 */) {
 	         this.fireStatus = 0;
 	         System.out.println("종오 = " + flame3);
@@ -167,16 +176,38 @@ public class EmergencyTest extends HttpServlet {
 	   private void json(HttpServletRequest request, HttpServletResponse response) {
 		      //int i=2;
 		      BaseMap basemap = new BaseMap();
+		      SensorMap sensormap = new SensorMap();
+		      fireposition = new ArrayList<int[]>();
 		      
 		      int[][] resultmap = basemap.getMap_arr();
 		      //int[][] resultmap = mapdata.getStrArr();
 		      //System.out.println("ss");
 		      
+		      //int[] xy = new int[2];
+		      int[] xy = null;
+		      
+		      for(int i=0; i<resultmap.length; i++) {
+		    	  for (int j=0; j<resultmap[0].length; j++) {
+		    		  if(resultmap[i][j] == 999) {
+		    			  xy = new int[2];
+		    			  xy[0] = i;
+		    			  xy[1] = j;
+		    		  }
+		    	  }
+		      }
+		      
+		      fireposition.add(xy);
+		      
 		      JSONObject jsonobject = new JSONObject();
 		      JSONArray jsonmap = new JSONArray();
-				
+		      
+			  JSONArray jsonPosition = new JSONArray();
+			  jsonPosition.put(fireposition);
+
 		      jsonmap.put(resultmap);
+		      
 		      jsonobject.put("map", jsonmap);
+		      jsonobject.put("fireposition", jsonPosition);
 		      //System.out.println("json");
 				
 		      try {
